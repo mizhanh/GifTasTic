@@ -43,7 +43,7 @@
     var topics = ["tiger", "monkey", "lion", "elephant", "rhino", "eagle", "dolphin", "bear", "orca", "zebra", "hyena", "sloth"];
 
     function displayTopicInfo() {
-      
+      $("#gifs-appear-here").empty();
       var topic = $(this).attr("data-name");
       var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=wifnUXHyGNt6nuDapEp9xQg837aetfpE&q=" + topic + "&limit=10&offset=0&lang=en";
       
