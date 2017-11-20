@@ -7,16 +7,16 @@
     .container { width: 960px;}
     button, div, form, input { margin: 10px;}
     button { background-color: #00FFFF;
-              font-size: 15px; }
+              font-size: 15px;
+              font-weight: bold; }
+    
+    #add-topic { background-color: gray;
+                font-size: 12px;
+                font-weight: bold;}
 
-    img { float: left;
-      position: relative;
-      margin: 5px;
-      padding: 10px;  
-      width: 200px;
-      height: 200px;}
-
-    p { float: left; }
+    #topic-input { font-size: 15px; }           
+    
+    #animal {float: left;}
 
     h1 {font-size: 40px;}
 
@@ -40,41 +40,57 @@
     <script type="text/javascript">
  
  //=================================================================================
+ 
+
     var topics = ["tiger", "monkey", "lion", "elephant", "rhino", "eagle", "dolphin", "bear", "orca", "zebra", "hyena", "sloth"];
 
     function displayTopicInfo() {
-      $("#gifs-appear-here").empty();
-      var topic = $(this).attr("data-name");
-      var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=wifnUXHyGNt6nuDapEp9xQg837aetfpE&q=" + topic + "&limit=10&offset=0&lang=en";
       
-      $.ajax({
-          url: queryURL,
-          method: "GET"
-        }).done(function(response) {
+      $("#gifs-appear-here").empty();
+      
+      var topic = $(this).attr("data-name");
+      
+      var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=wifnUXHyGNt6nuDapEp9xQg837aetfpE&q=" + topic + "&limit=10";
+      
+      $.ajax({url: queryURL, method: "GET"})
+      .done(function(response) {
           console.log(response);
           $("#topics-view").text(JSON.stringify(response));
           renderButtons();  
 
           var results = response.data;
-
+          
           for (var i = 0; i < results.length; i++) {
             var result = results[i];
-            var topicDiv = $("<div>");
+            var topicDiv = $("<div id='animal'>");
             var p = $("<p>").text("Rating: " + result.rating);
-            var topicImage = $("<img class='gif'>");
+            var image = $("<img>");
+            var still = result.images.fixed_height_still.url;
+            var animate = result.images.fixed_height.url;
             
-            topicImage.attr("src", result.images.original_still.url);
+            image.attr("src", still);
+            image.attr("data-still", still);
+            image.attr("data-animate", animate);
+            image.attr("data-state", "still");
+            image.addClass("gif");
 
             topicDiv.append(p);
-            topicDiv.append(topicImage);
+            topicDiv.append(image);
 
-            $("#gifs-appear-here").prepend(topicDiv);
-          }
-            
-            var state = $(this).attr("data-state");
-
-            
-          
+            $("#gifs-appear-here").append(topicDiv);
+          }    
+        
+          $(".gif").on("click", function(event) {
+           
+             var state = $(this).attr("data-state");
+             if (state === "still") {
+              $(this).attr("src", $(this).attr("data-animate"));
+              $(this).attr("data-state", "animate");
+             } else {
+                $(this).attr("src", $(this).attr("data-still"));
+                $(this).attr("data-state", "still");
+             }
+          });
         });
     }
     
@@ -102,6 +118,8 @@
       
       $(document).on("click", ".topic", displayTopicInfo);
       renderButtons();
+
+
     </script>
   </div>
 </body>
