@@ -4,21 +4,34 @@
   <meta charset="utf-8">
   <title>Animals Search</title>
   <style type="text/css">
-    .container { width: 960px;}
-    button, div, form, input { margin: 10px;}
-    button { background-color: #00FFFF;
-              font-size: 15px;
-              font-weight: bold; }
+    .container { background-color: #DAA520;
+                  color: black;
+                  margin-left: 40px;
+                  font-weight: bold}
+
+    button,form, input { margin: 10px;}
     
-    #add-topic { background-color: gray;
+    button { background-color: #FFFF00;
+              font-size: 15px;
+              font-weight: bold;
+              border-radius: 8px}
+    
+    #add-topic { background-color: #808080;
                 font-size: 12px;
                 font-weight: bold;}
 
     #topic-input { font-size: 15px; }           
     
-    #animal {float: left;}
+    #animal {float: left;
+              background-color: #000000;
+              color: #ffffff;
+              padding: 10px;
+              margin: 15px 0px 10px 25px;
+              border-radius: 10px}
 
-    h1 {font-size: 40px;}
+    h1 {font-size: 40px;
+        color: black;
+        padding: 15px;}
 
   </style>
 </head>
@@ -34,8 +47,9 @@
       <input id="add-topic" type="submit" value="Submit">
     </form> 
     
-    <div id="gifs-appear-here">
-
+      <div id="gifs-appear-here"></div>
+  
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript">
  
